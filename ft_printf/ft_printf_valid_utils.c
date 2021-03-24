@@ -103,7 +103,7 @@ int				ft_conversion(t_list *cur, va_list ap)
 		return (ft_putstr(cur, ap));
 	else if (ch == 0)
 		return (ft_nonval(cur));
-	//else u에 -넣으면 쓰레기값 나온다
-	// 	//num
+	else if (ch == 'd')
+		return (ft_put_decnum(cur, ap));
 	return (0);
 }

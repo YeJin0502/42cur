@@ -39,6 +39,7 @@ typedef struct t_list
 // #define H.....
 #define FLAG "0-+ #"
 #define BASE "cspdiuxX%%"
+#define HEXA "0123456789abcdef0123456789ABCDEF"
 #define RET_ERROR -1
 #define RET_SUCCESS 1
 
@@ -47,8 +48,10 @@ typedef struct t_list
 //utils.c
 int					ft_isdigit(char c);
 int					ft_atoi(char **s);
+void				ft_memset(char *dest, int sz, char ch);
 int					ft_calloc(size_t number, size_t size, void **ret, char ch);
 size_t				ft_strlen(const char *str);
+int					ft_numlen(int num);
 
 //valid_utils.c
 int					ft_isbase(char c);
@@ -62,10 +65,14 @@ void				ft_memcpy(char *dest, char *src, size_t count);
 int					ft_addline(char *fmt, char *iter, t_list **lst, int ck);
 int					ft_parsing(char *fmt, t_list **lst);
 
-//ft_printf.c
+//put_utils.c
 int					ft_nonval(t_list *cur);
 int					ft_putchar(t_list *cur, va_list ap);
 int					ft_putstr(t_list *cur, va_list ap);
+int					ft_put_decnum(t_list *cur, va_list ap);
+
+
+//ft_printf.c
 void				ft_ptf(t_list **lst);
 int					ft_print(t_list **lst, va_list ap);
 int					ft_printf(const char *fmt, ...);
