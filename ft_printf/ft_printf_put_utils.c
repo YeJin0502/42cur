@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/24 20:41:05 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/24 23:46:53 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,22 @@ int					ft_putstr(t_list *cur, va_list ap)
 
 void				make_num(char *dest, int sz, long long num)
 {
+	int				ck;
+
+	ck = 0;
+	if (num < 0){
+		num = -num;
+		ck = 1;
+	}
 	while(sz--)
 	{
-		*(dest--) = num % 10 + '0';
-		num /= 10;
+		if(sz == 0 && ck == 1){
+			*(dest) = '-';
+		}
+		else{
+			*(dest--) = num % 10 + '0';
+			num /= 10;
+		}
 	}
 }
 
@@ -97,12 +109,21 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 		sz = cur->prec;
 	if(sz < len)
 		sz = len;
+	if (num < 0 && len <= cur->width && len < cur->prec){
+		sz += 1;
+		cur->prec += 1;
+	}
+	else if (num < 0 && len <= cur->width && len == cur->prec){
+		cur->prec += 1;
+	}
 	if (cur->prec < len)
 		tmp = len;
 	else
 		tmp = cur->prec;
 	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))
 		return (RET_ERROR);
+	if (cur->prec < 0)
+		cur->prec = 0;
 	if ((cur->flag & LEFT))
 	{
 		ft_memset(cur->buf, cur->prec, '0');

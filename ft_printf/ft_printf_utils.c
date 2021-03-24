@@ -67,6 +67,10 @@ int				ft_numlen(int num)
 	int			i;
 	
 	i = 1;
+	if (num < 0){
+		num = -num;
+		i += 1;
+	}
 	while(num > 9)
 	{
 		num /= 10;
