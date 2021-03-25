@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/25 18:59:54 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/25 19:25:53 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,14 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 	char			pedding;
 
 	pedding = ' ';
-	if ((cur->flag & ZERO))
-		pedding = '0';
 	num = va_arg(ap, int);
+	if ((cur->flag & ZERO) && cur->prec < ft_numlen(num) - 1)
+		pedding = '0';
 	if (num < 0)
 		cur->prec += 1;
-	if (cur->prec < 0)
-		cur->prec = 0;
 	len = ft_max(ft_numlen(num), cur->prec);
 	sz = ft_max(len, cur->width);
 	tmp = ft_max(len, cur->prec);
-	if (ft_numlen(num) == tmp)
-		len += 1;
 	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
 		return (RET_ERROR);
 	if ((cur->flag & LEFT))
