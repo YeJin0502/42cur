@@ -51,7 +51,7 @@ int					ft_atoi(char **s);
 void				ft_memset(char *dest, int sz, char ch);
 int					ft_calloc(size_t number, size_t size, void **ret, char ch);
 size_t				ft_strlen(const char *str);
-int					ft_numlen(int num);
+int					ft_numlen(int num, int *flag);
 int					ft_max(int a, int b);
 
 
@@ -71,6 +71,7 @@ int					ft_parsing(char *fmt, t_list **lst);
 int					ft_nonval(t_list *cur);
 int					ft_putchar(t_list *cur, va_list ap);
 int					ft_putstr(t_list *cur, va_list ap);
+void				make_num(char *dest, int sz, long long num, int flag);
 int					ft_put_decnum(t_list *cur, va_list ap);
 
 

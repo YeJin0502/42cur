@@ -62,14 +62,14 @@ size_t				ft_strlen(const char *str)
 	return (i);
 }
 
-int				ft_numlen(int num)
+int				ft_numlen(int num, int *flag)
 {
 	int			i;
 	
 	i = 1;
 	if (num < 0){
 		num = -num;
-		i += 1;
+		*flag |= PLUS;
 	}
 	while(num > 9)
 	{

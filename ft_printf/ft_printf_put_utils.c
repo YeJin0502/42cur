@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/25 19:25:53 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/25 20:40:11 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,55 +74,43 @@ int					ft_putstr(t_list *cur, va_list ap)
 	return (sz);
 }
 
-void				make_num(char *dest, int sz, long long num)
+void				make_num(char *dest, int sz, long long num, int flag)
 {
-	int				ck;
 
-	ck = 0;
-	if (num < 0){
+	if (num < 0)
 		num = -num;
-		ck = 1;
-	}
 	while(sz--)
 	{
-		if (sz == 0 && ck == 1)
-			*(dest) = '-';
-		else
-		{
-			*(dest--) = num % 10 + '0';
-			num /= 10;
-		}
+		*(dest--) = num % 10 + '0';
+		num /= 10;
 	}
+	if (flag & PLUS)
+		*(dest) = '-';
 }
- 
- // 1. 할당길이
- //	2. 숫자의 길이
- // 2-1. 음수일때
- // 2-2. perc 이 더 길때
- 
+
 int					ft_put_decnum(t_list *cur, va_list ap)
 {
 	int				num;
 	int				len;
 	int				sz;
 	int				tmp;
-	char			pedding;
-
-	pedding = ' ';
+	
 	num = va_arg(ap, int);
-	if ((cur->flag & ZERO) && cur->prec < ft_numlen(num) - 1)
-		pedding = '0';
-	if (num < 0)
-		cur->prec += 1;
-	len = ft_max(ft_numlen(num), cur->prec);
+	len = ft_max(ft_numlen(num, &cur->flag), cur->prec);
 	sz = ft_max(len, cur->width);
-	tmp = ft_max(len, cur->prec);
-	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
+	if (num < 0)
+		sz++;
+	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))
 		return (RET_ERROR);
 	if ((cur->flag & LEFT))
-		make_num(cur->buf + tmp - 1, tmp, num);
+	{
+		if(cur->flag & PLUS)
+			make_num(cur->buf + len, len, num, cur->flag);
+		else
+			make_num(cur->buf + len - 1, len, num, cur->flag);
+	}
 	else
-		make_num(cur->buf + sz - 1, len, num);
+		make_num(cur->buf + sz - 1, len, num, cur->flag);
 	write(1, cur->buf, sz);
 	return (sz);
 }
