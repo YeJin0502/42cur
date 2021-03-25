@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/24 23:46:53 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/25 16:46:54 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void				make_num(char *dest, int sz, long long num)
 		}
 	}
 }
-
+ 
 int					ft_put_decnum(t_list *cur, va_list ap)
 {
 	int				num;
@@ -105,17 +105,12 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 	num = va_arg(ap, int);
 	len = ft_numlen(num);
 	sz = cur->width;
+	if (num < 0)
+		cur->prec += 1;
 	if(sz < cur->prec)
 		sz = cur->prec;
 	if(sz < len)
 		sz = len;
-	if (num < 0 && len <= cur->width && len < cur->prec){
-		sz += 1;
-		cur->prec += 1;
-	}
-	else if (num < 0 && len <= cur->width && len == cur->prec){
-		cur->prec += 1;
-	}
 	if (cur->prec < len)
 		tmp = len;
 	else
