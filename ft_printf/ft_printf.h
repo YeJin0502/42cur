@@ -52,6 +52,8 @@ void				ft_memset(char *dest, int sz, char ch);
 int					ft_calloc(size_t number, size_t size, void **ret, char ch);
 size_t				ft_strlen(const char *str);
 int					ft_numlen(int num);
+int					ft_max(int a, int b);
+
 
 //valid_utils.c
 int					ft_isbase(char c);

@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/25 16:46:54 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/25 18:59:54 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					ft_putchar(t_list *cur, va_list ap)
 		len = 1;
 	if (!(cur->flag & LEFT) && (cur->flag & ZERO))
 		padding = '0';
-	if(ft_calloc(1, len, (void *)&cur->buf, padding) == RET_ERROR)
+	if(!ft_calloc(1, len, (void *)&cur->buf, padding))
 		return (RET_ERROR);
 	if((cur->flag & LEFT))
 		*(cur->buf) = ch;
@@ -64,7 +64,7 @@ int					ft_putstr(t_list *cur, va_list ap)
 		sz = cur->width;
 	else
 		sz = len;
-	if (ft_calloc(1, sz + 1, (void *)&cur->buf, ' ') == RET_ERROR)
+	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))
 		return (RET_ERROR);
 	if ((cur->flag & LEFT))
 		ft_memcpy(cur->buf, ch, len);
@@ -85,50 +85,48 @@ void				make_num(char *dest, int sz, long long num)
 	}
 	while(sz--)
 	{
-		if(sz == 0 && ck == 1){
+		if (sz == 0 && ck == 1)
 			*(dest) = '-';
-		}
-		else{
+		else
+		{
 			*(dest--) = num % 10 + '0';
 			num /= 10;
 		}
 	}
 }
  
+ // 1. 할당길이
+ //	2. 숫자의 길이
+ // 2-1. 음수일때
+ // 2-2. perc 이 더 길때
+ 
 int					ft_put_decnum(t_list *cur, va_list ap)
 {
 	int				num;
-	int				sz;
 	int				len;
+	int				sz;
 	int				tmp;
+	char			pedding;
 
+	pedding = ' ';
+	if ((cur->flag & ZERO))
+		pedding = '0';
 	num = va_arg(ap, int);
-	len = ft_numlen(num);
-	sz = cur->width;
 	if (num < 0)
 		cur->prec += 1;
-	if(sz < cur->prec)
-		sz = cur->prec;
-	if(sz < len)
-		sz = len;
-	if (cur->prec < len)
-		tmp = len;
-	else
-		tmp = cur->prec;
-	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))
-		return (RET_ERROR);
 	if (cur->prec < 0)
 		cur->prec = 0;
+	len = ft_max(ft_numlen(num), cur->prec);
+	sz = ft_max(len, cur->width);
+	tmp = ft_max(len, cur->prec);
+	if (ft_numlen(num) == tmp)
+		len += 1;
+	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
+		return (RET_ERROR);
 	if ((cur->flag & LEFT))
-	{
-		ft_memset(cur->buf, cur->prec, '0');
 		make_num(cur->buf + tmp - 1, tmp, num);
-	}
 	else
-	{
-		ft_memset(cur->buf + (sz - cur->prec), cur->prec, '0');
 		make_num(cur->buf + sz - 1, len, num);
-	}
 	write(1, cur->buf, sz);
 	return (sz);
 }
