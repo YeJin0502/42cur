@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/25 20:40:11 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 02:06:44 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int					ft_putstr(t_list *cur, va_list ap)
 
 void				make_num(char *dest, int sz, long long num, int flag)
 {
-
 	if (num < 0)
 		num = -num;
 	while(sz--)
@@ -84,7 +83,9 @@ void				make_num(char *dest, int sz, long long num, int flag)
 		*(dest--) = num % 10 + '0';
 		num /= 10;
 	}
-	if (flag & PLUS)
+	while(*(dest - 1) == '0')
+		dest--;
+	if(flag & PLUS)
 		*(dest) = '-';
 }
 
@@ -93,14 +94,18 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 	int				num;
 	int				len;
 	int				sz;
-	int				tmp;
+	char			pedding;
+	int				max;
 	
+	pedding = ' ';
 	num = va_arg(ap, int);
 	len = ft_max(ft_numlen(num, &cur->flag), cur->prec);
 	sz = ft_max(len, cur->width);
-	if (num < 0)
+	if (num < 0 && sz < len + 1)
 		sz++;
-	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))
+	if ((cur->flag & ZERO) && (cur->prec > ft_numlen(num, &cur->flag) || cur->prec <= 0))
+		pedding = '0';
+	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
 		return (RET_ERROR);
 	if ((cur->flag & LEFT))
 	{

@@ -71,7 +71,7 @@ int					ft_parsing(char *fmt, t_list **lst);
 int					ft_nonval(t_list *cur);
 int					ft_putchar(t_list *cur, va_list ap);
 int					ft_putstr(t_list *cur, va_list ap);
-void				make_num(char *dest, int sz, long long num, int flag);
+void				make_num(char *dest, int len, long long num, int flag);
 int					ft_put_decnum(t_list *cur, va_list ap);
 
 
