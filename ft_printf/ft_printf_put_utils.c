@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/26 02:06:44 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 17:02:14 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,37 @@ void				make_num(char *dest, int sz, long long num, int flag)
 		*(dest) = '-';
 }
 
+char				ft_ped(t_list *cur, int num)
+{
+	int				num_len;
+
+	num_len = ft_numlen(num, &cur->flag);
+	if (num < 0 && (cur->flag & ZERO) && !(cur->flag & LEFT))
+	{
+		num_len++;
+		if (cur->prec < num_len && cur->prec)
+			return ('0');
+
+	}
+	else if ((cur->flag & ZERO) && !(cur->flag & LEFT))
+	{
+		if (cur->prec < num_len && cur->prec)
+			return ('0');
+	}
+	return (' ');
+}
+
 int					ft_put_decnum(t_list *cur, va_list ap)
 {
-	int				num;
-	int				len;
+	const int		num = va_arg(ap, int);
+	const int		len = ft_max(ft_numlen(num, &cur->flag), cur->prec);
 	int				sz;
 	char			pedding;
-	int				max;
 	
-	pedding = ' ';
-	num = va_arg(ap, int);
-	len = ft_max(ft_numlen(num, &cur->flag), cur->prec);
+	pedding = ft_ped(cur, num);
 	sz = ft_max(len, cur->width);
 	if (num < 0 && sz < len + 1)
 		sz++;
-	if ((cur->flag & ZERO) && (cur->prec > ft_numlen(num, &cur->flag) || cur->prec <= 0))
-		pedding = '0';
 	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
 		return (RET_ERROR);
 	if ((cur->flag & LEFT))
