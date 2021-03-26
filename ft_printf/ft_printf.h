@@ -71,9 +71,9 @@ void				make_num(char *dest, int sz, long long num, int flag);
 int					ft_nonval(t_list *cur);
 int					ft_putchar(t_list *cur, va_list ap);
 int					ft_putstr(t_list *cur, va_list ap);
-int					ft_put_decnum(t_list *cur, va_list ap);
 char				ft_ped(t_list *cur, long long num);
-
+int					ft_put_decnum(t_list *cur, va_list ap);
+int					ft_put_unnum(t_list *cur, va_list ap);
 //ft_printf.c
 void				ft_ptf(t_list **lst);
 int					ft_print(t_list **lst, va_list ap);

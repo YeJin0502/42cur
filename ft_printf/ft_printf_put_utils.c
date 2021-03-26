@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/26 18:26:50 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 19:09:03 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,17 @@ char				ft_ped(t_list *cur, long long num)
 	return (' ');
 }
 
+long long int get_type(char base, va_list ap)
+{
+	if (base == 'd' || base == 'i')
+		return va_arg(ap, int);
+	return va_arg(ap, long long int);
+}
+
 int					ft_put_decnum(t_list *cur, va_list ap)
 {
-	const int		num = va_arg(ap, int);
+	const long long int num = get_type(cur->base, ap);
+	//long long		num = va_arg(ap, int);
 	const int		len = ft_max(ft_numlen(num, &cur->flag), cur->prec);
 	int				sz;
 	const char		pedding = ft_ped(cur, num);
