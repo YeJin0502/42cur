@@ -19,8 +19,11 @@ void				ft_ptf(t_list **lst)
 	cur = *lst;
 	while(cur)
 	{
-		write(1, cur->str, sizeof(cur->str));
-		printf("\n");
+		if (cur->base == 0)
+			write(1, cur->str, ft_strlen(cur->str));
+		if (cur->base == 'p')
+			write(1, "0x", 2);
+		write(1, cur->buf, ft_strlen(cur->buf));
 		cur = cur->pNext;
 	}
 	return ;
@@ -44,9 +47,6 @@ int					ft_print(t_list **lst, va_list ap)
 		if(tmp == RET_ERROR)
 			return (RET_ERROR);
 		ret += tmp;
-		// printf("\nflag:: %d\nwidth:: %d\nprec:: %d\nstr:: %s\n", cur->flag, cur->width, cur->prec, cur->str);
-		// printf("base:: %c\nbuf:: %s\n", cur->base, cur->buf);
-		// puts("");
 		cur = cur->pNext;
 	}
 	return (ret);
@@ -67,14 +67,8 @@ int					ft_printf(const char *fmt, ...)
 	iter = lst;
 	ft_parsing(tmp, &lst);
 	ret = ft_print(&iter, ap);
-	
-	//ft_ptf(&(iter->pNext)); //리스트 확인용 출력
+	ft_ptf(&lst);
 	va_end(ap);
 	//ft_free(lst);
-	//printf("%d\n", ret);
 	return (ret);
 }
-
-//d에다가 인자가 들어와야하지 않나..?
-//그럼 인자를 어떻게 잘 넘겨야 잘 출력이 되는 걸가요?
-//훙ㅇ양훙야!!!!!!???!!!

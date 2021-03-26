@@ -104,6 +104,6 @@ int				ft_conversion(t_list *cur, va_list ap)
 	else if (ch == 0)
 		return (ft_nonval(cur));
 	else
-		return (ft_put_decnum(cur, ap));
+		return (ft_put_num(cur, ap));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/26 19:58:35 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 20:14:04 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int					ft_nonval(t_list *cur)
 	int				len;
 
 	len = ft_strlen(cur->str);
-	write(1, cur->str, len);
+	//write(1, cur->str, len);
 	return (len);
 }
 
@@ -42,7 +42,7 @@ int					ft_putchar(t_list *cur, va_list ap)
 		*(cur->buf) = ch;
 	else
 		*(cur->buf + len - 1) = ch;
-	write(1, cur->buf, len);
+	//write(1, cur->buf, len);
 	return (len);
 }
 
@@ -70,7 +70,7 @@ int					ft_putstr(t_list *cur, va_list ap)
 		ft_memcpy(cur->buf, ch, len);
 	else
 		ft_memcpy(cur->buf + sz - len, ch, len);
-	write(1, cur->buf, sz);
+	//write(1, cur->buf, sz);
 	return (sz);
 }
 
@@ -101,10 +101,9 @@ long long int get_type(char base, va_list ap)
 	return (va_arg(ap, long long int));
 }
 
-int					ft_put_decnum(t_list *cur, va_list ap)
+int					ft_put_num(t_list *cur, va_list ap)
 {
 	const long long int num = get_type(cur->base, ap);
-	//long long		num = va_arg(ap, int);
 	const int		len = ft_max(ft_numlen(num, cur), cur->prec);
 	int				sz;
 	const char		pedding = ft_ped(cur, num);
@@ -127,6 +126,8 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 	}
 	else
 		make_num(cur->buf + sz - 1, len, num, cur);
-	write(1, cur->buf, sz);
+	if (cur->base == 'p')
+		sz += 2;
+	//write(1, cur->buf, sz);
 	return (sz);
 }
