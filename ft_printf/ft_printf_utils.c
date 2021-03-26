@@ -67,6 +67,7 @@ size_t			ft_numlen(long long num, t_list *cur)
 	int			i;
 	int			b;
 
+	// 베이스에 맞는 값에 대한 길이 처리를 완료하고나서.
 	b = 15;
 	if (cur->base == 'd' || cur->base == 'u' || cur->base == 'i')
 		b = 9;
@@ -80,6 +81,8 @@ size_t			ft_numlen(long long num, t_list *cur)
 		num /= b + 1;
 		i++;
 	}
+	if (cur->base == 'p')
+		i += 2;
 	return (i);
 }
 

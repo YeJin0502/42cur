@@ -12,21 +12,20 @@
 
 #include "ft_printf.h"
 
-void				ft_ptf(t_list **lst)
+void				ft_free(t_list **lst)
 {
 	t_list			*cur;
+	t_list			*tmp;
 
 	cur = *lst;
 	while(cur)
 	{
-		if (cur->base == 0)
-			write(1, cur->str, ft_strlen(cur->str));
-		if (cur->base == 'p')
-			write(1, "0x", 2);
-		write(1, cur->buf, ft_strlen(cur->buf));
-		cur = cur->pNext;
+		free(cur->buf);
+		free(cur->str);
+		tmp = cur->pNext;
+		free(cur);
+		cur = tmp;
 	}
-	return ;
 }
 
 int					ft_print(t_list **lst, va_list ap)
@@ -67,8 +66,7 @@ int					ft_printf(const char *fmt, ...)
 	iter = lst;
 	ft_parsing(tmp, &lst);
 	ret = ft_print(&iter, ap);
-	//ft_ptf(&lst);
 	va_end(ap);
-	//ft_free(lst);
+	ft_free(&lst);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/26 20:19:56 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 20:22:41 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,6 @@ int					ft_put_num(t_list *cur, va_list ap)
 	}
 	else
 		make_num(cur->buf + sz - 1, len, num, cur);
-	if (cur->base == 'p')
-	{
-		sz += 2;
-		write(1, "0x", 2);
-	}
 	write(1, cur->buf, sz);
 	return (sz);
 }
