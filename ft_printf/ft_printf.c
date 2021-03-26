@@ -67,7 +67,7 @@ int					ft_printf(const char *fmt, ...)
 	iter = lst;
 	ft_parsing(tmp, &lst);
 	ret = ft_print(&iter, ap);
-	ft_ptf(&lst);
+	//ft_ptf(&lst);
 	va_end(ap);
 	//ft_free(lst);
 	return (ret);
