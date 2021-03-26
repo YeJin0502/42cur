@@ -99,4 +99,6 @@ void				make_num(char *dest, int sz, long long num, t_list *cur)
 		*(dest) = '-';
 	if (cur->base == 'p')
 		*(dest + 2) = 'x';
+	if (cur->base == 'p' && cur->prec == 0)
+		*(dest + 3) = ' ';
 }
