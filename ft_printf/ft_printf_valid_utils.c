@@ -103,7 +103,7 @@ int				ft_conversion(t_list *cur, va_list ap)
 		return (ft_putstr(cur, ap));
 	else if (ch == 0)
 		return (ft_nonval(cur));
-	else if (ch == 'd' || ch == 'i' || ch == 'u')
+	else if (ch == 'd' || ch == 'i')
 		return (ft_put_decnum(cur, ap));
 	return (0);
 }

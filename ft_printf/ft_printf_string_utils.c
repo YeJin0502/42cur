@@ -72,3 +72,18 @@ int					ft_parsing(char *fmt, t_list **lst)
 		return (RET_ERROR);
 	return (RET_SUCCESS);
 }
+
+void				make_num(char *dest, int sz, long long num, int flag)
+{
+	if (num < 0)
+		num = -num;
+	while(sz--)
+	{
+		*(dest--) = num % 10 + '0';
+		num /= 10;
+	}
+	while(*(dest - 1) == '0')
+		dest--;
+	if(flag & PLUS)
+		*(dest) = '-';
+}

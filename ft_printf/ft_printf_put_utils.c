@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/26 17:02:14 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 18:26:50 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,7 @@ int					ft_putstr(t_list *cur, va_list ap)
 	return (sz);
 }
 
-void				make_num(char *dest, int sz, long long num, int flag)
-{
-	if (num < 0)
-		num = -num;
-	while(sz--)
-	{
-		*(dest--) = num % 10 + '0';
-		num /= 10;
-	}
-	while(*(dest - 1) == '0')
-		dest--;
-	if(flag & PLUS)
-		*(dest) = '-';
-}
-
-char				ft_ped(t_list *cur, int num)
+char				ft_ped(t_list *cur, long long num)
 {
 	int				num_len;
 
@@ -97,13 +82,13 @@ char				ft_ped(t_list *cur, int num)
 	if (num < 0 && (cur->flag & ZERO) && !(cur->flag & LEFT))
 	{
 		num_len++;
-		if (cur->prec < num_len && cur->prec)
+		if (cur->prec < num_len && cur->prec < 0)
 			return ('0');
 
 	}
 	else if ((cur->flag & ZERO) && !(cur->flag & LEFT))
 	{
-		if (cur->prec < num_len && cur->prec)
+		if (cur->prec < num_len && cur->prec < 0)
 			return ('0');
 	}
 	return (' ');
@@ -114,15 +99,18 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 	const int		num = va_arg(ap, int);
 	const int		len = ft_max(ft_numlen(num, &cur->flag), cur->prec);
 	int				sz;
-	char			pedding;
+	const char		pedding = ft_ped(cur, num);
 	
-	pedding = ft_ped(cur, num);
 	sz = ft_max(len, cur->width);
 	if (num < 0 && sz < len + 1)
 		sz++;
+	if (cur->prec == 0 && num == 0 && cur->width <= 0)
+		sz = 0;
 	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
 		return (RET_ERROR);
-	if ((cur->flag & LEFT))
+	if (cur->prec == 0 && num == 0)	
+		ft_memset(cur->buf, sz , ' ');
+	else if ((cur->flag & LEFT))
 	{
 		if(cur->flag & PLUS)
 			make_num(cur->buf + len, len, num, cur->flag);

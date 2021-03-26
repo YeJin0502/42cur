@@ -62,7 +62,7 @@ size_t				ft_strlen(const char *str)
 	return (i);
 }
 
-int				ft_numlen(int num, int *flag)
+size_t			ft_numlen(long long num, int *flag)
 {
 	int			i;
 	
