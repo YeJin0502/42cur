@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/26 19:09:03 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/26 19:18:32 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ char				ft_ped(t_list *cur, long long num)
 long long int get_type(char base, va_list ap)
 {
 	if (base == 'd' || base == 'i')
-		return va_arg(ap, int);
-	return va_arg(ap, long long int);
+		return (va_arg(ap, int));
+	return (va_arg(ap, long long int));
 }
 
 int					ft_put_decnum(t_list *cur, va_list ap)
@@ -121,12 +121,12 @@ int					ft_put_decnum(t_list *cur, va_list ap)
 	else if ((cur->flag & LEFT))
 	{
 		if(cur->flag & PLUS)
-			make_num(cur->buf + len, len, num, cur->flag);
+			make_num(cur->buf + len, len, num, cur);
 		else
-			make_num(cur->buf + len - 1, len, num, cur->flag);
+			make_num(cur->buf + len - 1, len, num, cur);
 	}
 	else
-		make_num(cur->buf + sz - 1, len, num, cur->flag);
+		make_num(cur->buf + sz - 1, len, num, cur);
 	write(1, cur->buf, sz);
 	return (sz);
 }

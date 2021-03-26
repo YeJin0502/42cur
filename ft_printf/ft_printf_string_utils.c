@@ -73,17 +73,25 @@ int					ft_parsing(char *fmt, t_list **lst)
 	return (RET_SUCCESS);
 }
 
-void				make_num(char *dest, int sz, long long num, int flag)
+void				make_num(char *dest, int sz, long long num, t_list *cur)
 {
+	int				b;
+	int				i;
+
+
+	b = 16;
+	if (cur->base == 'd' || cur->base =='i' || cur->base == 'u')
+		b = 10;
 	if (num < 0)
 		num = -num;
 	while(sz--)
 	{
-		*(dest--) = num % 10 + '0';
+		i = num % b;
+		*(dest--) = HEXA[i];
 		num /= 10;
 	}
 	while(*(dest - 1) == '0')
 		dest--;
-	if(flag & PLUS)
+	if(cur->flag & PLUS)
 		*(dest) = '-';
 }

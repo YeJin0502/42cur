@@ -39,6 +39,7 @@ typedef struct t_list
 // #define H.....
 #define FLAG "0-+ #"
 #define BASE "cspdiuxX%%"
+#define DEC "0123456789"
 #define HEXA "0123456789abcdef0123456789ABCDEF"
 #define RET_ERROR -1
 #define RET_SUCCESS 1
@@ -65,7 +66,7 @@ int					ft_conversion(t_list *cur, va_list ap);
 void				ft_memcpy(char *dest, char *src, size_t count);
 int					ft_addline(char *fmt, char *iter, t_list **lst, int ck);
 int					ft_parsing(char *fmt, t_list **lst);
-void				make_num(char *dest, int sz, long long num, int flag);
+void				make_num(char *dest, int sz, long long num, t_list *cur);
 
 //put_utils.c
 int					ft_nonval(t_list *cur);
