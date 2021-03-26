@@ -39,7 +39,6 @@ typedef struct t_list
 // #define H.....
 #define FLAG "0-+ #"
 #define BASE "cspdiuxX%%"
-#define DEC "0123456789"
 #define HEXA "0123456789abcdef0123456789ABCDEF"
 #define RET_ERROR -1
 #define RET_SUCCESS 1
@@ -52,7 +51,7 @@ int					ft_atoi(char **s);
 void				ft_memset(char *dest, int sz, char ch);
 int					ft_calloc(size_t number, size_t size, void **ret, char ch);
 size_t				ft_strlen(const char *str);
-size_t				ft_numlen(long long num, int *flag);
+size_t				ft_numlen(long long num, t_list *cur);
 int					ft_max(int a, int b);
 
 //valid_utils.c

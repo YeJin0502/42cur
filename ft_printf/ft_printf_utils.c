@@ -62,18 +62,22 @@ size_t				ft_strlen(const char *str)
 	return (i);
 }
 
-size_t			ft_numlen(long long num, int *flag)
+size_t			ft_numlen(long long num, t_list *cur)
 {
 	int			i;
-	
+	int			b;
+
+	b = 15;
+	if (cur->base == 'd' || cur->base == 'u' || cur->base == 'i')
+		b = 9;
 	i = 1;
 	if (num < 0){
 		num = -num;
-		*flag |= PLUS;
+		cur->flag |= PLUS;
 	}
-	while(num > 9)
+	while(num > b)
 	{
-		num /= 10;
+		num /= b + 1;
 		i++;
 	}
 	return (i);

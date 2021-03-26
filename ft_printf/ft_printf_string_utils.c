@@ -78,7 +78,6 @@ void				make_num(char *dest, int sz, long long num, t_list *cur)
 	int				b;
 	int				i;
 
-
 	b = 16;
 	if (cur->base == 'd' || cur->base =='i' || cur->base == 'u')
 		b = 10;
@@ -87,8 +86,10 @@ void				make_num(char *dest, int sz, long long num, t_list *cur)
 	while(sz--)
 	{
 		i = num % b;
+		if (cur->base == 'X')
+			i += 16;
 		*(dest--) = HEXA[i];
-		num /= 10;
+		num /= b;
 	}
 	while(*(dest - 1) == '0')
 		dest--;
