@@ -101,4 +101,9 @@ void				make_num(char *dest, int sz, long long num, t_list *cur)
 		*(dest + 2) = 'x';
 	if (cur->base == 'p' && cur->prec == 0 && t == 0 && cur->width > 3)
 		*(dest + 3) = ' ';
+	if (cur->width >= 11 && cur->prec == 0 && cur->base == 'p')
+	{
+		*(dest) = '0';
+		*(dest + 1) = 'x';
+	}
 }

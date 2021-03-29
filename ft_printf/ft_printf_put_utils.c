@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/29 16:49:58 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/29 16:54:34 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int					ft_put_pointer(t_list *cur, va_list ap)
 	if (num == 0 && cur->prec == 0)
 		len = 1;
 	if (num == 0 && cur->width < 3 && cur->prec == 0)
-		sz = cur->width;
+		sz = 2;
 	if (num < 0 && sz < len + 1)
 		sz++;
 	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))

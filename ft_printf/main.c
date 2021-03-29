@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:37:46 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/29 16:49:39 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/29 17:20:57 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,51 +30,49 @@ int main()
 {
 	unsigned int d = 2147483670;
 	void *p = 0;
-	int	ret;
-ret = printf("%p", p);//>-->|0x0 |<--
+	int	ret = 0;
+	ret = printf("%p", p);
 	printf("\n%d\n", ret);
-ret = printf("-->|%-4p|<--\n", p);//>-->|0x0 |<--
-	printf("%d\n", ret);
-ret = printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
-	printf("%d\n", ret);
-ret = printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
-	printf("%d\n", ret);
-ret = printf("--//>|%-2.p|<--\n", p);//>-->|0x|<--
-	printf("//%d\n", ret);
-ret = printf("--//>|%-2.p|<--\n", p);//>-->|0x |<--
-	printf("//%d\n", ret);
-ret = printf("--//>|%-2.p|<--\n", p);//>-->|0x|<--
-	printf("//%d\n", ret);
-ret = printf("--//>|%-2.p|<--\n", p);//>-->|0x |<--
-	printf("//%d\n", ret);
-ret = printf("-->|%-2p|<--\n", p);//>-->|0x0|<--
-	printf("%d\n", ret);
-ret = printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
-	printf("%d\n", ret);
-ret = printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
-	printf("%d\n", ret);
-
-puts("==============");
-ret = ft_printf("-->|%-4p|<--\n", p);//>-->|0x0 |<--
-	printf("%d\n", ret);
-ret = ft_printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
-	printf("%d\n", ret);
-ret = ft_printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
-	printf("%d\n", ret);
-ret = ft_printf("--//>|%-2.p|<--\n", p);//>-->|0x|<--
-	printf("//%d\n", ret);
-ret = ft_printf("--//>|%-2.p|<--\n", p);//>-->|0x |<--
-	printf("//%d\n", ret);
-ret = ft_printf("--//>|%-2.p|<--\n", p);//>-->|0x|<--
-	printf("//%d\n", ret);
-ret = ft_printf("--//>|%-2.p|<--\n", p);//>-->|0x |<--
-	printf("//%d\n", ret);
-ret = ft_printf("-->|%-2p|<--\n", p);//>-->|0x0|<--
-	printf("%d\n", ret);
-ret = ft_printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
-	printf("%d\n", ret);
-ret = ft_printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
-	printf("%d\n", ret);
-	// width 보다 precision이 쌔다.
+	printf("-->|%-4p|<--\n", p);//>-->|0x0 |<--
+printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
+printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
+printf("-->|%-2.p|<--\n", p);//>-->|0x|<--
+printf("-->|%-2.p|<--\n", p);//>-->|0x |<--
+printf("-->|%-2.p|<--\n", p);//>-->|0x|<--
+printf("-->|%-2.p|<--\n", p);//>-->|0x |<--
+printf("-->|%-2p|<--\n", p);//>-->|0x0|<--
+printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
+printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
+printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
+printf("-->|%-2.p|<--\n", p);//>-->|0x|<--
+printf("-->|%-2p|<--\n", p);//>-->|0x0|<--
+printf("-->|%-1.p|<--\n", p);//>-->|0x|<--
+printf("-->|%-1.p|<--\n", p);//>-->|0|<--
+printf("-->|%*.p|<--\n", 11, p);//>-->|          0|<--
+printf("-->|%*.p|<--\n", 12, p);//>-->|           0|<--
+printf("-->|%*.p|<--\n", 13, p);//>-->|            0|<--
+printf("-->|%*.p|<--\n", 14, p);//>-->|             0|<--
+printf("-->|%*p|<--\n", 15, p);//>-->|              0|<--
+puts("==================");
+	ft_printf("-->|%-4p|<--\n", p);//>-->|0x0 |<--
+ft_printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
+ft_printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
+ft_printf("-->|%-2.p|<--\n", p);//>-->|0x|<--
+ft_printf("-->|%-2.p|<--\n", p);//>-->|0x |<--
+ft_printf("-->|%-2.p|<--\n", p);//>-->|0x|<--
+ft_printf("-->|%-2.p|<--\n", p);//>-->|0x |<--
+ft_printf("-->|%-2p|<--\n", p);//>-->|0x0|<--
+ft_printf("-->|%-3.p|<--\n", p);//>-->|0x |<--
+ft_printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
+ft_printf("-->|%-3p|<--\n", p);//>-->|0x0|<--
+ft_printf("-->|%-2.p|<--\n", p);//>-->|0x|<--
+ft_printf("-->|%-2p|<--\n", p);//>-->|0x0|<--
+ft_printf("-->|%-1.p|<--\n", p);//>-->|0x|<--
+ft_printf("-->|%-1.p|<--\n", p);//>-->|0|<--
+ft_printf("-->|%*.p|<--\n", 11, p);//>-->|          0|<--
+ft_printf("-->|%*.p|<--\n", 12, p);//>-->|           0|<--
+ft_printf("-->|%*.p|<--\n", 13, p);//>-->|            0|<--
+ft_printf("-->|%*.p|<--\n", 14, p);//>-->|             0|<--
+ft_printf("-->|%*p|<--\n", 15, p);//>-->|              0|<--
 	return (0);
 }
