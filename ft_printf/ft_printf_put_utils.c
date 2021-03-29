@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/27 00:25:49 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/29 16:49:58 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					ft_putchar(t_list *cur, va_list ap)
 		*(cur->buf) = ch;
 	else
 		*(cur->buf + len - 1) = ch;
-	//write(1, cur->buf, len);
+	write(1, cur->buf, len);
 	return (len);
 }
 
@@ -115,7 +115,7 @@ int					ft_put_num(t_list *cur, va_list ap)
 		sz = 0;
 	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, pedding))
 		return (RET_ERROR);
-	if (cur->prec == 0 && num == 0 && cur->base != 'p')	
+	if (cur->prec == 0 && num == 0)	
 		ft_memset(cur->buf, sz , ' ');
 	else if ((cur->flag & LEFT))
 	{
@@ -127,5 +127,33 @@ int					ft_put_num(t_list *cur, va_list ap)
 	else
 		make_num(cur->buf + sz - 1, len, num, cur);
 	write(1, cur->buf, sz);
+	return (sz);
+}
+
+int					ft_put_pointer(t_list *cur, va_list ap)
+{
+	const long long int num = get_type(cur->base, ap);
+	int		len = ft_max(ft_numlen(num, cur), cur->prec);
+	int				sz;
+
+	sz = ft_max(len, cur->width);
+	if (num == 0 && cur->prec == 0)
+		len = 1;
+	if (num == 0 && cur->width < 3 && cur->prec == 0)
+		sz = cur->width;
+	if (num < 0 && sz < len + 1)
+		sz++;
+	if (!ft_calloc(1, sz + 1, (void *)&cur->buf, ' '))
+		return (RET_ERROR);
+	if ((cur->flag & LEFT))
+	{
+		if(cur->flag & PLUS)
+			make_num(cur->buf + len, len, num, cur);
+		else
+			make_num(cur->buf + len - 1, len, num, cur);
+	}
+	else
+		make_num(cur->buf + sz - 1, len, num, cur);
+	write (1, cur->buf, sz);
 	return (sz);
 }

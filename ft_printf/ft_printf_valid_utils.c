@@ -103,6 +103,8 @@ int				ft_conversion(t_list *cur, va_list ap)
 		return (ft_putstr(cur, ap));
 	else if (ch == 0)
 		return (ft_nonval(cur));
+	else if (ch == 'p')
+		return (ft_put_pointer(cur, ap));
 	else
 		return (ft_put_num(cur, ap));
 	return (0);

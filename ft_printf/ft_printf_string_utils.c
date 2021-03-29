@@ -77,9 +77,9 @@ void				make_num(char *dest, int sz, long long num, t_list *cur)
 {
 	int				b;
 	int				i;
+	int				t;
 
-	// 16진법에 맞게 처리를 하는데, p와 p가 아닌경우.
-	// 왜 ? p = 0x가 붙기떄문에.
+	t = num;
 	b = 16;
 	if (cur->base == 'd' || cur->base =='i' || cur->base == 'u')
 		b = 10;
@@ -99,6 +99,6 @@ void				make_num(char *dest, int sz, long long num, t_list *cur)
 		*(dest) = '-';
 	if (cur->base == 'p')
 		*(dest + 2) = 'x';
-	if (cur->base == 'p' && cur->prec == 0)
+	if (cur->base == 'p' && cur->prec == 0 && t == 0 && cur->width > 3)
 		*(dest + 3) = ' ';
 }

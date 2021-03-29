@@ -73,6 +73,8 @@ int					ft_putchar(t_list *cur, va_list ap);
 int					ft_putstr(t_list *cur, va_list ap);
 char				ft_ped(t_list *cur, long long num);
 int					ft_put_num(t_list *cur, va_list ap);
+int					ft_put_pointer(t_list *cur, va_list ap);
+
 //ft_printf.c
 void				ft_ptf(t_list **lst);
 int					ft_print(t_list **lst, va_list ap);
