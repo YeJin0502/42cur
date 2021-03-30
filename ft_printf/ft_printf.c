@@ -34,7 +34,7 @@ int				ft_free(t_list *lst, int ret)
 	return (ret);
 }
 
-int					ft_print(t_list **lst, va_list *ap)
+int					ft_print(t_list **lst, va_list ap)
 {
 	t_list			*cur;
 	char			*iter;
@@ -72,7 +72,7 @@ int					ft_printf(const char *fmt, ...)
 	iter = lst;
 	if (ft_parsing(tmp, &lst) == RET_ERROR)
 		return (ft_free(lst, RET_ERROR));
-	ret = ft_print(&iter, &ap);
+	ret = ft_print(&iter, ap);
 	va_end(ap);
 	return (ft_free(lst, ret));
 }
