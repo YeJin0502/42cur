@@ -48,16 +48,16 @@ int					ft_isdigit(char c);
 int					ft_atoi(char **s);
 void				ft_memset(char *dest, int sz, char ch);
 int					ft_calloc(size_t number, size_t size, void **ret, char ch);
-size_t				ft_strlen(const char *str);
+int					ft_strlen(char *str);
 int					ft_numlen(long long num, t_list *cur);
 int					ft_max(int a, int b);
 
 //valid_utils.c
 int					ft_isbase(char c);
 int					ft_get_flag(char **str);
-int					ft_get_width(t_list **cur, char **str, va_list ap);
-int					ft_get_prec(char **str, va_list ap);
-int					ft_conversion(t_list *cur, va_list ap);
+int					ft_get_width(t_list **cur, char **str, va_list *ap);
+int					ft_get_prec(char **str, va_list *ap);
+int					ft_conversion(t_list *cur, va_list *ap);
 
 //string_utils.c
 void				ft_memcpy(char *dest, char *src, size_t count);
@@ -67,15 +67,15 @@ void				make_num(char *dest, int sz, long long num, t_list *cur);
 
 //put_utils.c
 int					ft_putstring(char *str, int size);
-int					ft_putchar(t_list *cur, va_list ap);
-int					ft_putstr(t_list *cur, va_list ap);
+int					ft_putchar(t_list *cur, va_list *ap);
+int					ft_putstr(t_list *cur, va_list *ap);
 char				ft_ped(t_list *cur, long long num);
 int					ft_put_num(t_list *cur, void *p);
-int					ft_put_pointer(t_list *cur, va_list ap);
+int					ft_put_pointer(t_list *cur, va_list *ap);
 
 //ft_printf.c
 int					ft_free(t_list *lst, int ret);
-int					ft_print(t_list **lst, va_list ap);
+int					ft_print(t_list **lst, va_list *ap);
 int					ft_printf(const char *fmt, ...);
 
 

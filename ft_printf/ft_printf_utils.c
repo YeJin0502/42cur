@@ -49,12 +49,14 @@ int		ft_calloc(size_t number, size_t size, void **ret, char ch)
 	return (1);
 }
 
-size_t				ft_strlen(const char *str)
+int				ft_strlen(char *str)
 {
-	size_t			i;
+	int			i;
 
 	i = 0;
-	while (str && *str)
+	if (!str)
+		return (i);
+	while (*str)
 	{
 		str++;
 		i++;
@@ -78,10 +80,10 @@ int			ft_numlen(long long num, t_list *cur)
 		cur->flag |= PLUS;
 		num = -num;
 	}
-	while (num > cur->base - 1)
+	while (num > cur->numeral - 1)
 	{
 		++idx;
-		num /= cur->base;
+		num /= cur->numeral;
 	}
 	return (idx);
 }

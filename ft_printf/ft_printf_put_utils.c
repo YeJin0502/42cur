@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/30 18:45:56 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/30 19:15:23 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int					ft_putstring(char *str, int size)
 	return (size);
 }
 
-int					ft_putchar(t_list *cur, va_list ap)
+int					ft_putchar(t_list *cur, va_list *ap)
 {
 	char			ch;
 	char			padding;
@@ -28,7 +28,7 @@ int					ft_putchar(t_list *cur, va_list ap)
 	ch = '%';
 	padding = ' ';
 	if (cur->base == 'c')
-		ch = va_arg(ap, int);
+		ch = va_arg(*ap, int);
 	if (len <= 0)
 		len = 1;
 	if (!(cur->flag & LEFT) && (cur->flag & ZERO))
@@ -42,18 +42,18 @@ int					ft_putchar(t_list *cur, va_list ap)
 	return (ft_putstring(cur->buf, len));
 }
 
-int					ft_putstr(t_list *cur, va_list ap)
+int					ft_putstr(t_list *cur, va_list *ap)
 {
 	int				sz; //출력물의 사이즈
 	int				len; //문자의 길이
 	char			*ch;
 
 
-	ch = va_arg(ap, char *);
+	ch = va_arg(*ap, char *);
 	if (ch == NULL)
 		len = 6;
 	else
-		len = (int)ft_strlen(ch);
+		len = ft_strlen(ch);
 	if (cur->prec != -1 && cur->prec < len)
 		len = cur->prec;
 	if (cur->width != -1 && cur->width > len)
@@ -66,7 +66,6 @@ int					ft_putstr(t_list *cur, va_list ap)
 		ft_memcpy(cur->buf, ch, len);
 	else
 		ft_memcpy(cur->buf + sz - len, ch, len);
-	write(1, cur->buf, sz);
 	return (ft_putstring(cur->buf, sz));
 }
 
@@ -147,7 +146,7 @@ int					ft_put_num(t_list *cur, void *p)
 	return (ft_putstring(cur->buf, sz));
 }
 
-int					ft_put_pointer(t_list *cur, va_list ap)
+int					ft_put_pointer(t_list *cur, va_list *ap)
 {
 	const long long int num = get_type(cur->base, ap);
 	int		len = ft_max(ft_numlen(num, cur), cur->prec);

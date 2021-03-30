@@ -40,6 +40,7 @@ int					ft_addline(char *fmt, char *iter, t_list **lst, int ck)
 		return (RET_ERROR);
 	ft_memcpy(tmp->str, fmt, iter - fmt);
 	tmp->numeral = 10;
+	tmp->size = iter - fmt;
 	if (ck == 1)
 		tmp->base = *iter;
 	while (cur->pNext)
