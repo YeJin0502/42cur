@@ -6,19 +6,16 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:48:07 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/29 16:54:34 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/30 18:45:56 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int					ft_nonval(t_list *cur)
+int					ft_putstring(char *str, int size)
 {
-	int				len;
-
-	len = ft_strlen(cur->str);
-	write(1, cur->str, len);
-	return (len);
+	write(1, str, size);
+	return (size);
 }
 
 int					ft_putchar(t_list *cur, va_list ap)
@@ -42,8 +39,7 @@ int					ft_putchar(t_list *cur, va_list ap)
 		*(cur->buf) = ch;
 	else
 		*(cur->buf + len - 1) = ch;
-	write(1, cur->buf, len);
-	return (len);
+	return (ft_putstring(cur->buf, len));
 }
 
 int					ft_putstr(t_list *cur, va_list ap)
@@ -71,7 +67,7 @@ int					ft_putstr(t_list *cur, va_list ap)
 	else
 		ft_memcpy(cur->buf + sz - len, ch, len);
 	write(1, cur->buf, sz);
-	return (sz);
+	return (ft_putstring(cur->buf, sz));
 }
 
 char				ft_ped(t_list *cur, long long num)
@@ -94,19 +90,41 @@ char				ft_ped(t_list *cur, long long num)
 	return (' ');
 }
 
-long long int get_type(char base, va_list ap)
+long long get_type(char ch, void *p)
 {
-	if (base == 'd' || base == 'i')
-		return (va_arg(ap, int));
-	return (va_arg(ap, long long int));
+	if (ch == 'd' || ch == 'i')
+		return (*(int *)p);
+	else if (ch == 'u' || ch == 'x' || ch == 'X')
+		return (*(unsigned int *)p);
+	return (*(long long *)p);	
 }
 
-int					ft_put_num(t_list *cur, va_list ap)
+int	ft_excep(t_list *cur)
 {
-	const long long int num = get_type(cur->base, ap);
+	int		ret;
+
+	ret = ft_max(cur->width, 3);
+	if (!cur->prec && cur->width < 3)
+		ret--;
+	if (ft_calloc(ret + 1, 1, (void *)&cur->buf, ' ') == RET_ERROR)
+		return (RET_ERROR);
+	if (cur->flag & LEFT && !cur->prec)
+		ft_memcpy(cur->buf, "0x", 2);
+	else if (cur->flag & LEFT)
+		ft_memcpy(cur->buf, "0x0", 3);
+	else if (!cur->prec)
+		ft_memcpy(cur->buf + ret - 2, "0x", 2);
+	else
+		ft_memcpy(cur->buf + ret - 3, "0x0", 3);
+	return (ft_putstring(cur->buf, ret));
+}
+
+int					ft_put_num(t_list *cur, void *p)
+{
+	const long long	num = get_type(cur->base, p);
 	const int		len = ft_max(ft_numlen(num, cur), cur->prec);
-	int				sz;
 	const char		pedding = ft_ped(cur, num);
+	int				sz;
 	
 	sz = ft_max(len, cur->width);
 	if (num < 0 && sz < len + 1)
@@ -126,8 +144,7 @@ int					ft_put_num(t_list *cur, va_list ap)
 	}
 	else
 		make_num(cur->buf + sz - 1, len, num, cur);
-	write(1, cur->buf, sz);
-	return (sz);
+	return (ft_putstring(cur->buf, sz));
 }
 
 int					ft_put_pointer(t_list *cur, va_list ap)
@@ -154,6 +171,5 @@ int					ft_put_pointer(t_list *cur, va_list ap)
 	}
 	else
 		make_num(cur->buf + sz - 1, len, num, cur);
-	write (1, cur->buf, sz);
-	return (sz);
+	return (ft_putstring(cur->buf, sz));
 }

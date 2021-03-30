@@ -12,20 +12,23 @@
 
 #include "ft_printf.h"
 
-void				ft_free(t_list **lst)
+int				ft_free(t_list *lst, int ret)
 {
 	t_list			*cur;
 	t_list			*tmp;
 
-	cur = *lst;
-	while(cur)
+	cur = lst;
+	while (cur)
 	{
-		free(cur->buf);
-		free(cur->str);
+		if (cur->buf)
+			free(cur->buf);
+		if (cur->str)
+			free(cur->str);
 		tmp = cur->pNext;
 		free(cur);
 		cur = tmp;
 	}
+	return (ret);
 }
 
 int					ft_print(t_list **lst, va_list ap)
@@ -36,14 +39,14 @@ int					ft_print(t_list **lst, va_list ap)
 	int tmp;
 	cur = (*lst)->pNext;
 	ret = 0;
-	while(cur)
+	while (cur)
 	{
 		iter = cur->str;
 		cur->flag = ft_get_flag(&iter);
 		cur->width = ft_get_width(&cur, &iter, ap);
 		cur->prec = ft_get_prec(&iter, ap);
 		tmp = ft_conversion(cur, ap);
-		if(tmp == RET_ERROR)
+		if (tmp == RET_ERROR)
 			return (RET_ERROR);
 		ret += tmp;
 		cur = cur->pNext;
@@ -61,12 +64,12 @@ int					ft_printf(const char *fmt, ...)
 
 	va_start(ap, fmt);
 	tmp = (char *)fmt;
-	if(ft_calloc(1, sizeof(t_list), (void *)&lst, 0) == RET_ERROR)
+	if (ft_calloc(1, sizeof(t_list), (void *)&lst, 0) == RET_ERROR)
 		return (RET_ERROR);
 	iter = lst;
-	ft_parsing(tmp, &lst);
+	if (ft_parsing(tmp, &lst) == RET_ERROR)
+		return (ft_free(lst, RET_ERROR));
 	ret = ft_print(&iter, ap);
 	va_end(ap);
-	ft_free(&lst);
-	return (ret);
+	return (ft_free(lst, ret));
 }

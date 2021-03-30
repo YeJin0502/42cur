@@ -39,6 +39,7 @@ int					ft_addline(char *fmt, char *iter, t_list **lst, int ck)
 	if(!(ft_calloc(iter - fmt + 1, 1, (void *)&(tmp->str), 0)))
 		return (RET_ERROR);
 	ft_memcpy(tmp->str, fmt, iter - fmt);
+	tmp->numeral = 10;
 	if (ck == 1)
 		tmp->base = *iter;
 	while (cur->pNext)
@@ -75,35 +76,22 @@ int					ft_parsing(char *fmt, t_list **lst)
 
 void				make_num(char *dest, int sz, long long num, t_list *cur)
 {
-	int				b;
-	int				i;
-	int				t;
+	int			idx;
 
-	t = num;
-	b = 16;
-	if (cur->base == 'd' || cur->base =='i' || cur->base == 'u')
-		b = 10;
+	idx = 0;
+	if (cur->base == 'X')
+		idx = 16;
 	if (num < 0)
 		num = -num;
-	while(sz--)
+	while (sz--)
 	{
-		i = num % b;
-		if (cur->base == 'X')
-			i += 16;
-		*(dest--) = HEXA[i];
-		num /= b;
+		*(dest--) = DIGIT[(num % cur->numeral) + idx];
+		num /= cur->numeral;
 	}
-	while(*(dest - 1) == '0')
+	if (cur->base == 'p' && ++dest)
+		*(++dest) = 'x';
+	while (cur->flag & PLUS && dest != cur->buf &&*(dest - 1) == '0')
 		dest--;
-	if(cur->flag & PLUS)
-		*(dest) = '-';
-	if (cur->base == 'p')
-		*(dest + 2) = 'x';
-	if (cur->base == 'p' && cur->prec == 0 && t == 0 && cur->width > 3)
-		*(dest + 3) = ' ';
-	if (cur->width >= 11 && cur->prec == 0 && cur->base == 'p')
-	{
-		*(dest) = '0';
-		*(dest + 1) = 'x';
-	}
+	if (cur->flag & PLUS)
+		*dest = '-';
 }

@@ -62,28 +62,28 @@ size_t				ft_strlen(const char *str)
 	return (i);
 }
 
-size_t			ft_numlen(long long num, t_list *cur)
+int			ft_numlen(long long num, t_list *cur)
 {
-	int			i;
-	int			b;
+	int	idx;
 
-	// 베이스에 맞는 값에 대한 길이 처리를 완료하고나서.
-	b = 15;
-	if (cur->base == 'd' || cur->base == 'u' || cur->base == 'i')
-		b = 9;
-	i = 1;
-	if (num < 0){
-		num = -num;
-		cur->flag |= PLUS;
-	}
-	while(num > b)
+	idx = 1;
+	if (cur->base == 'x' || cur->base == 'X' || cur->base == 'p')
 	{
-		num /= b + 1;
-		i++;
+		cur->numeral = 16;
+		if (cur->base == 'p')
+			idx += 2;
 	}
-	if (cur->base == 'p')
-		i += 2;
-	return (i);
+	if (num < 0)
+	{
+		cur->flag |= PLUS;
+		num = -num;
+	}
+	while (num > cur->base - 1)
+	{
+		++idx;
+		num /= cur->base;
+	}
+	return (idx);
 }
 
 int					ft_max(int a, int b)

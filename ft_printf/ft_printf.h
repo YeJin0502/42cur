@@ -18,32 +18,30 @@
 #include <stdarg.h>
 #include <stdio.h> //printf 를 위해
 
-typedef struct t_list
+typedef struct		t_list
 {
-	char	*str;
-	char	*buf;
-	int		flag;
-	int		width;
-	int		prec;
-	char	base;
-	struct t_list *pNext;
-}t_list;
+	char			*str;
+	char			*buf;
+	char			*start;
+	int				flag;
+	int				width;
+	int				prec;
+	int				size;
+	char			base;
+	int				numeral;
+	struct t_list	*pNext;
+}					t_list;
 
 #define ZERO 1
 #define LEFT 2
 #define PLUS 4
 #define SPACE 8
 #define SPECIAL 16
-// #define LONG 32
-// #define LLONG 64
-// #define H.....
-#define FLAG "0-+ #"
+#define FLAG "0-"
 #define BASE "cspdiuxX%%"
-#define HEXA "0123456789abcdef0123456789ABCDEF"
+#define DIGIT "0123456789abcdef0123456789ABCDEF"
 #define RET_ERROR -1
 #define RET_SUCCESS 1
-
-//lh
 
 //utils.c
 int					ft_isdigit(char c);
@@ -51,7 +49,7 @@ int					ft_atoi(char **s);
 void				ft_memset(char *dest, int sz, char ch);
 int					ft_calloc(size_t number, size_t size, void **ret, char ch);
 size_t				ft_strlen(const char *str);
-size_t				ft_numlen(long long num, t_list *cur);
+int					ft_numlen(long long num, t_list *cur);
 int					ft_max(int a, int b);
 
 //valid_utils.c
@@ -68,16 +66,18 @@ int					ft_parsing(char *fmt, t_list **lst);
 void				make_num(char *dest, int sz, long long num, t_list *cur);
 
 //put_utils.c
-int					ft_nonval(t_list *cur);
+int					ft_putstring(char *str, int size);
 int					ft_putchar(t_list *cur, va_list ap);
 int					ft_putstr(t_list *cur, va_list ap);
 char				ft_ped(t_list *cur, long long num);
-int					ft_put_num(t_list *cur, va_list ap);
+int					ft_put_num(t_list *cur, void *p);
 int					ft_put_pointer(t_list *cur, va_list ap);
 
 //ft_printf.c
-void				ft_ptf(t_list **lst);
+int					ft_free(t_list *lst, int ret);
 int					ft_print(t_list **lst, va_list ap);
 int					ft_printf(const char *fmt, ...);
 
+
+int	ft_excep(t_list *cur);
 #endif

@@ -91,21 +91,22 @@ int					ft_get_prec(char **str, va_list ap)
 	}
 	return (ret);
 }
-//string, num, char
+
 int				ft_conversion(t_list *cur, va_list ap)
 {
-	char			ch;
-
+	char	ch;
+	void	*p;
 	ch = cur->base;
 	if(ch == '%' || ch == 'c')
 		return (ft_putchar(cur, ap));
 	else if (ch == 's')
 		return (ft_putstr(cur, ap));
-	else if (ch == 0)
-		return (ft_nonval(cur));
-	else if (ch == 'p')
-		return (ft_put_pointer(cur, ap));
-	else
-		return (ft_put_num(cur, ap));
-	return (0);
+	else if (ch == 'd' || ch == 'i' || ch == 'u' || ch == 'x' || ch == 'X' || ch == 'p')
+	{
+		p = va_arg(ap, void *);
+		if (ch == 'p' && p == 0)
+			return (ft_excep(cur));
+		return (ft_put_num(cur, &p));
+	}
+	return (ft_putstring(cur->str, cur->size));
 }
