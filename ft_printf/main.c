@@ -6,12 +6,11 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 16:37:46 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/30 23:39:12 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/03/31 00:14:16 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#define BPRINT(x, ...) PRINT("\"%s\" // 1st '*' = %d, 2nd '*' = %d\n", x, a, b)
 
 int		a = -4;
 	int		b = 0;
@@ -38,8 +37,9 @@ int		a = -4;
 int main(){
 	a = 12;
 	b = 18;
-	printf(" --- Return : %d\n", printf("**%s**-d%%0*d%-12s0*@", p, r, r, i, r, i, r, i));
-	ft_printf(" --- Return : %d\n", ft_printf("**%s**-d%%0*d%-12s0*@", p, r, r, i, r, i, r, i));
+	
+	printf(" --- Return : %d\n", printf("**%s**-d%%0*d%-12s0*@", r, p, r, r, i, r, i, r, i));
+	ft_printf(" --- Return : %d\n", ft_printf("**%s**-d%%0*d%-12s0*@", r, p, r, r, i, r, i, r, i));
+	
 
-	return 0;
 }

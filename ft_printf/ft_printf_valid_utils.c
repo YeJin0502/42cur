@@ -48,7 +48,7 @@ int					ft_get_flag(char **str)
 	return (ret);
 }
 
-int					ft_get_width(t_list **cur, char **str, va_list ap)
+int					ft_get_width(t_list **cur, char **str, va_list *ap)
 {
 	int				ret;
 
@@ -59,7 +59,8 @@ int					ft_get_width(t_list **cur, char **str, va_list ap)
 	else if(**str == '*')
 	{
 		++(*str);
-		ret = va_arg(ap, int);
+		if ((*cur)->base != 0)
+			ret = va_arg(*ap, int);
 		if(ret < 0)
 		{
 			ret = -ret;
@@ -69,7 +70,7 @@ int					ft_get_width(t_list **cur, char **str, va_list ap)
 	return (ret);
 }
 
-int					ft_get_prec(char **str, va_list ap)
+int					ft_get_prec(t_list **cur, char **str, va_list *ap)
 {
 	int				ret;
 	
@@ -82,7 +83,8 @@ int					ft_get_prec(char **str, va_list ap)
 		else if(**str == '*')
 		{
 			++(*str);
-			ret = va_arg(ap, int);
+			if ((*cur)->base != 0)
+				ret = va_arg(*ap, int);
 		}
 		else
 			ret = 0;
@@ -92,11 +94,10 @@ int					ft_get_prec(char **str, va_list ap)
 	return (ret);
 }
 
-int				ft_conversion(t_list *cur, va_list ap)
+int				ft_conversion(t_list *cur, va_list *ap)
 {
 	char	ch;
 	void	*p;
-
 	ch = cur->base;
 	if(ch == '%' || ch == 'c')
 		return (ft_putchar(cur, ap));
@@ -104,7 +105,7 @@ int				ft_conversion(t_list *cur, va_list ap)
 		return (ft_putstr(cur, ap));
 	else if (ch == 'd' || ch == 'i' || ch == 'u' || ch == 'x' || ch == 'X' || ch == 'p')
 	{
-		p = va_arg(ap, void *);
+		p = va_arg(*ap, void *);
 		if (ch == 'p' && p == 0)
 			return (ft_excep(cur));
 		return (ft_put_num(cur, &p));
