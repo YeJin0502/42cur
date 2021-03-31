@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: yejsong <yejsong@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 18:10:14 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/03/23 18:10:14 by song-yejin       ###   ########.fr       */
+/*   Created: 2021/03/31 19:01:50 by yejsong           #+#    #+#             */
+/*   Updated: 2021/03/31 19:02:11 by yejsong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int					ft_isdigit(char c)
 {
-	return(c >= '0' && c <= '9');
+	return (c >= '0' && c <= '9');
 }
 
-int					ft_atoi(char **s){
-	int				ret;
+int					ft_atoi(char **s)
+{
+	int	ret;
 
 	ret = 0;
 	while (ft_isdigit(**s))
@@ -26,16 +27,10 @@ int					ft_atoi(char **s){
 		ret = ret * 10 + **s - '0';
 		(*s)++;
 	}
-	return(ret);
+	return (ret);
 }
 
-void	ft_memset(char *dest, int sz, char ch)
-{
-	while (sz--)
-		*(dest++) = ch;
-}
-
-int		ft_calloc(size_t number, size_t size, void **ret, char ch)
+int					ft_calloc(size_t number, size_t size, void **ret, char ch)
 {
 	char	*temp;
 	size_t	idx;
@@ -49,22 +44,7 @@ int		ft_calloc(size_t number, size_t size, void **ret, char ch)
 	return (1);
 }
 
-int				ft_strlen(char *str)
-{
-	int			i;
-
-	i = 0;
-	if (!str)
-		return (i);
-	while (*str)
-	{
-		str++;
-		i++;
-	}
-	return (i);
-}
-
-int			ft_numlen(long long num, t_list *cur)
+int					ft_numlen(long long num, t_list *cur)
 {
 	int	idx;
 

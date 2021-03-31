@@ -6,7 +6,8 @@ SRCS = ft_printf.c \
 		ft_printf_utils.c \
 		ft_printf_string_utils.c \
 		ft_printf_valid_utils.c \
-		ft_printf_put_utils.c
+		ft_printf_put_char.c\
+		ft_printf_put_num.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): all
