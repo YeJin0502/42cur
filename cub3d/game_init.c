@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 19:25:28 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/20 19:39:20 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/21 00:22:46 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	game_init(t_info *info, t_game *g)
 
 	i = -1;
 	g->buf = ft_calloc(info->win_y, sizeof(int *), 0);
-	while (++i < info->win_x)
+	while (++i < info->win_y)
 		g->buf[i] = ft_calloc(info->win_x, sizeof(int), 0);
-	g->zBuffer = ft_calloc(info->win_x, sizeof(int), 0);
+	g->zBuffer = ft_calloc(info->win_x, sizeof(double), 0);
 	load_texture(info, g);
 	g->win_x = info->win_x;
 	g->win_y = info->win_y;

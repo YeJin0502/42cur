@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:52:12 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/20 20:13:19 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/20 22:16:52 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,21 @@ int	win_parsing(char *s, t_info *info, int inf)
 {
 	int	val[4];
 	int	cnt;
+	int tmp[2];
 
 	cnt = -1;
-	val[0] = info->win_x;
-	val[1] = info->win_y;
+	tmp[0] = info->win_x;
+	tmp[1] = info->win_y;
 	while (*s && cnt < 3)
 	{
 		if (ft_isdigit(*s))
-			val[++cnt] = ft_min(ft_atoi(&s, val[cnt]), val[cnt]); //max값 나중에 수정해주세요 ^^
-		if ((*s && *s != ' ') || val[cnt] == RET_ERROR)
+		{
+			++cnt;
+			val[cnt] = ft_min(ft_atoi(&s), tmp[cnt]); //max값 나중에 수정해주세요 ^^
+		}
+		if (*s && *s != ' ')
 			return (RET_ERROR);
+		
 		s++;
 	}
 	if (cnt != 1)
@@ -170,8 +175,8 @@ int	rgb_parsing(char *s, t_info *info, int inf)
 	while (*s && cnt < 4)
 	{
 		if (ft_isdigit(*s) && c - 1 == cnt)
-			val[++cnt] = ft_atoi(&s, 255);
-		if ((*s && !ft_strchr(" ,", *s)) || val[cnt] == RET_ERROR )
+			val[++cnt] = ft_atoi(&s);
+		if ((*s && !ft_strchr(" ,", *s)) || val[cnt] > 255)
 			return (RET_ERROR);
 		if (*s == ',')
 			c++;

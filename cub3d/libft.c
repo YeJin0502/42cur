@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:41:41 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/20 20:15:14 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/20 22:16:00 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_isdigit(int c)
 	return ((c >= '0' && c <= '9'));
 }
 
-int		ft_atoi(char **s, int max)
+int		ft_atoi(char **s)
 {
 	int	ret;
 
@@ -47,8 +47,6 @@ int		ft_atoi(char **s, int max)
 	{
 		ret = ret * 10 + **s - '0';
 		(*s)++;
-		if (ret > max)
-			return (RET_ERROR);
 	}
 	return (ret);
 }

@@ -140,11 +140,12 @@ typedef struct	s_scasting
 char	*ft_strchr(const char *str, int c);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
-int		ft_atoi(char **s, int max);
+int		ft_atoi(char **s);
 void	ft_memset(char *dest, int size, char ch);
 void	ft_free(char **line);
 void	*ft_calloc(size_t number, size_t size, char ch);
 int		ft_max(int x, int y);
+int		ft_min(int x, int y);
 int		ft_strncmp(char *str1, char *str2, size_t n);
 size_t	ft_strlen(char *str);
 void	*ft_memcpy(void *dest, void *src, size_t count);
@@ -192,7 +193,7 @@ void	sprites_location(t_info *info, t_game *g);
 
 //main.c
 void	ft_exit(char *s);
-t_info	cub_init(int ac, char *ag[]);
+void	cub_init(int ac, char *ag[], t_info *info);
 void	load_image(t_game *g, char *path, t_img *img, int i);
 void	load_texture(t_info *info, t_game *g);
 void	floor_color(t_game *g);

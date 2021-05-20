@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 17:43:51 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/20 20:02:12 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/21 00:25:09 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,18 @@ void	ft_exit(char *s)
 	exit(0);
 }
 
-t_info	cub_init(int ac, char *ag[])
+void	cub_init(int ac, char *ag[], t_info *info)
 {
-	t_info		info;
 	const int	fd = open(ag[1], O_RDONLY); //ag[1]
 	int n = ac;
 	
-	ft_memset((char *)&info, sizeof(t_info), 0);
 	if (fd < 0)
 		ft_exit("ERROR: FILE CANNOT BE FOUND");
-	ft_memset((char*)&info, sizeof(t_info), 0);
-	if (cub_parsing(fd, &info) != (1 << 9) - 1)
+	if (cub_parsing(fd, info) != (1 << 9) - 1)
 		ft_exit("ERROR: CHECK FILE CONTENTS");
-	ft_valid(&info);
+	ft_valid(info);
 	close(fd);
 	n = n / 1;
-	return (info);
 }
 
 void	load_image(t_game *g, char *path, t_img *img, int i)
@@ -210,7 +206,7 @@ int		main()
 		ft_memset((char *)&g, sizeof(t_game), 0);
 		g.mlx = mlx_init();
 		mlx_get_screen_size(g.mlx, &info.win_x, &info.win_y);
-		info = cub_init(ac, ag);
+		cub_init(ac, ag, &info);
 		game_init(&info, &g);
 		g.win = mlx_new_window(g.mlx, info.win_x, info.win_y, "mlx");
 		g.img.img = mlx_new_image(g.mlx, info.win_x, info.win_y);
