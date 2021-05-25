@@ -1,9 +1,15 @@
 CC = clang
-FLAGS = -arch x86_64 -Wall -Wextra -Werror -g
+FLAGS = -g3 -fsanitize=address -arch x86_64 -Wall -Wextra -Werror -g
 NAME = cub3d
-SRCS = filevalid.c \
+SRCS = bmp.c \
+		num_valid.c \
+		map_valid.c \
+		file_valid.c \
 		get_fileinfo.c \
 		libft.c \
+		string.c \
+		key.c \
+		main_loop.c \
 		wall_casting.c \
 		sprites_casting.c \
 		game_init.c \

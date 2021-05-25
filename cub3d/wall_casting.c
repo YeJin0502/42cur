@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 19:04:43 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/20 19:31:42 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/24 18:24:19 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	wall_casting(t_game *g)
 	{
 		wall_init(x, g, &tw);
 		dda(g, &tw);
-		get_height(g, &tw); //뭐라고 짓지..?
-		draw_one_line(x, g, &tw); //....;o;
+		get_height(g, &tw);
+		draw_one_line(x, g, &tw);
 	}
 }
 
@@ -63,24 +63,22 @@ void	dda(t_game *g, t_wcasting *tw)
 		{
 			tw->sideDistX += tw->deltaDistX;
 			tw->mapX += tw->stepX;
-			tw->side = 0; //x에 부딪힘
+			tw->side = 0;
 		}
 		else
 		{
 			tw->sideDistY += tw->deltaDistY;
 			tw->mapY += tw->stepY;
-			tw->side = 1; //y에 부딪힘
+			tw->side = 1;
 		}
-		// if (g->map[tw->mapX][tw->mapY] == '1')
-		// 	tw->hit = 1;
 	}
-	tw->texNum = 0;
+	tw->texNum = 1;
 	if (tw->side == 0 && tw->stepX < 0)
-		tw->texNum = 1;
+		tw->texNum = 0;
 	else if (tw->side == 1 && tw->stepY > 0)
-		tw->texNum = 2;
-	else if (tw->side == 1 && tw->stepY < 0)
 		tw->texNum = 3;
+	else if (tw->side == 1 && tw->stepY < 0)
+		tw->texNum = 2;
 }
 
 void	get_height(t_game *g, t_wcasting *tw)
@@ -101,7 +99,6 @@ void	get_height(t_game *g, t_wcasting *tw)
 	else
 		tw->wallX = g->posX + tw->perpWallDist * tw->rayDirX;
 	tw->wallX -= floor(tw->wallX);
-	// tw->texX = (int)(tw->wallX * (double)texWidth); 
 	tw->texX = (int)(tw->wallX * (double)g->sz_img[tw->texNum].x); 
 	if ((tw->side == 0 && tw->rayDirX > 0) || (tw->side == 1 && tw->rayDirY < 0))
 		tw->texX = g->sz_img[tw->texNum].x - tw->texX - 1;
@@ -118,10 +115,8 @@ void	draw_one_line(int x, t_game *g, t_wcasting *tw)
 	y = tw->drawStart - 1;
 	while (++y < tw->drawEnd)
 	{
-		// texY = (int)tw->texPos & (texHeight - 1);
 		texY = (int)tw->texPos & ((int)g->sz_img[tw->texNum].y - 1);
 		tw->texPos += tw->step;
-		// color = g->texture[tw->texNum][texHeight * texY + tw->texX];
 		color = g->texture[tw->texNum][(int)g->sz_img[tw->texNum].y * texY + tw->texX];
 		if (tw->side == 1)
 			color = (color >> 1) & 8355711;

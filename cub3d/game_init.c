@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 19:25:28 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/21 00:22:46 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/24 20:10:59 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	game_init(t_info *info, t_game *g)
 	g->c_rgb = info->c_rgb;
 	g->f_rgb = info->f_rgb;
 	copy_map(info, g);
+	g->spriteO = (int *)ft_calloc(g->numSprite, sizeof(int), 0);
+	g->spriteD = (double *)ft_calloc(g->numSprite, sizeof(double), 0);
+	g->save = info->save;
 }
 
 void	player_init(t_info *i, t_game *g)
@@ -76,7 +79,7 @@ void	copy_map(t_info *info, t_game *g)
 		j = -1;
 		while (++j < info->width)
 		{
-			if (ft_isdigit(info->map[i][j]))
+			if (ft_isdigit(g->map[i][j]))
 				g->map[i][j] -= '0';
 			else
 				g->map[i][j] = 0;
@@ -84,8 +87,25 @@ void	copy_map(t_info *info, t_game *g)
 				g->numSprite++;
 		}
 	}
+	sprites_ck(info, g);
+	// g->numSprite++;
+	// sprites_location(info, g);
+	// i = -1;
+	// while (++i < info->height)
+		// free(info->map[i]);
+	// free(info->map);
+}
+
+void	sprites_ck(t_info *info, t_game *g)
+{
+	int	i;
+
 	g->numSprite++;
 	sprites_location(info, g);
+	i = -1;
+	while (++i < info->height)
+		free(info->map[i]);
+	free(info->map);
 }
 
 void	sprites_location(t_info *info, t_game *g)

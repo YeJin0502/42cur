@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:46:50 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/11 19:12:18 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/24 20:49:10 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		get_a_line(int fd, char **line, int flag)
 	while((sz = read(fd, &ch, 1)) > 0)
 	{
 		width++;
-		if (flag == '\n' && !*line && (ch == ' ' || ch == '\n')) //맨 앞 공백 삭제
+		if (flag == '\n' && !*line && (ch == ' ' || ch == '\n'))
 			continue;
 		if (ft_append(line, ch, flag))
 			return (width);
@@ -86,6 +86,7 @@ int		cub_parsing(int fd, t_info *info)
 
 	flag = 0;
 	status = 1;
+	line = 0;
 	while(status > 0)
 	{
 		if(status >= 1 && flag < 255)
@@ -101,8 +102,6 @@ int		cub_parsing(int fd, t_info *info)
 			info->height++;
 			info->width = ft_max(info->width, status);
 		}
-		else
-			return (flag);
 	}
 	make_map(line, info);
 	return (flag);
@@ -122,7 +121,7 @@ void	make_map(char *line, t_info *info)
 	while (++i < info->height)
 		*(tmp + i) = ft_calloc(info->width, sizeof(char *), ' ');
 	i = -1;
-	while (*end)
+	while (line && *end)
 	{
 		start = end;
 		while(*end && *end != '\n')

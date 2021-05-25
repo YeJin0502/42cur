@@ -6,7 +6,7 @@
 /*   By: song-yejin <song-yejin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 19:20:36 by song-yejin        #+#    #+#             */
-/*   Updated: 2021/05/20 19:23:43 by song-yejin       ###   ########.fr       */
+/*   Updated: 2021/05/24 18:44:29 by song-yejin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sprite_casting(t_game *g)
 	int			i;
 
 	ft_memset((char *)&ts, sizeof(t_scasting), 0);
-	sprite_init(g, &ts);
+	sprite_init(g);
 	i = -1;
 	while (++i < g->numSprite)
 	{
@@ -27,19 +27,17 @@ void	sprite_casting(t_game *g)
 	}
 }
 
-void	sprite_init(t_game *g, t_scasting *ts)
+void	sprite_init(t_game *g)
 {
 	int	i;
 
 	i = -1;
-	ts->spriteO = (int *)ft_calloc(g->numSprite, sizeof(int), 0);
-	ts->spriteD = (double *)ft_calloc(g->numSprite, sizeof(double), 0);
 	while (++i < g->numSprite)
 	{
-		ts->spriteO[i] = i;
-		ts->spriteD[i] = ((g->posX - g->s[i].x) * (g->posX - g->s[i].x) + (g->posY - g->s[i].y) * (g->posY - g->s[i].y));
+		g->spriteO[i] = i;
+		g->spriteD[i] = ((g->posX - g->s[i].x) * (g->posX - g->s[i].x) + (g->posY - g->s[i].y) * (g->posY - g->s[i].y));
 	}
-	sortSprites(ts->spriteO, ts->spriteD, g->numSprite);
+	sortSprites(g->spriteO, g->spriteD, g->numSprite);
 }
 
 void	sortSprites(int *order, double *dist, int n)
@@ -91,8 +89,8 @@ void	sort_order(t_pair *o, int n)
 
 void	sprite_calc(t_game *g, t_scasting *ts, int i)
 {
-	ts->spriteX = g->s[ts->spriteO[i]].x - g->posX;
-	ts->spriteY = g->s[ts->spriteO[i]].y - g->posY;
+	ts->spriteX = g->s[g->spriteO[i]].x - g->posX;
+	ts->spriteY = g->s[g->spriteO[i]].y - g->posY;
 	ts->invDet = 1.0 / (g->planeX * g->dirY - g->dirX * g->planeY);
 	ts->transformX = ts->invDet * (g->dirY * ts->spriteX - g->dirX * ts->spriteY);
 	ts->transformY = ts->invDet * (-g->planeY * ts->spriteX + g->planeX * ts->spriteY);
