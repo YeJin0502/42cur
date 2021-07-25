@@ -1,0 +1,27 @@
+{
+	"files.associations": {
+		"stdio.h": "c",
+		"ios": "c",
+		"deque": "cpp",
+		"__bit_reference": "cpp",
+		"__string": "cpp",
+		"cstring": "cpp",
+		"algorithm": "c",
+		"ratio": "c",
+		"push_swap.h": "c",
+		"stdlib.h": "c",
+		"signal.h": "c",
+		"server": "c",
+		"minitalk.h": "c",
+		"client1": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"unordered_map": "c",
+		"prac copy111": "c",
+		"prac11": "c",
+		"*.ㅊ": "c",
+		"client11": "c",
+		"server11": "c"
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
+}
